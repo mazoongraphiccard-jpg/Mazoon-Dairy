@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Project</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Mazoon Chat</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
 </head>
 
 <body>
 
-  <header>
-    <h1>مرحباً بك في مشروعي 🚀</h1>
-    <p>موقع تجريبي يعمل على GitHub Pages</p>
-  </header>
+<div class="container">
+  <div class="header">Mazoon Chat Room</div>
 
-  <main>
-    <button onclick="showMessage()">اضغط هنا</button>
-    <p id="message"></p>
-  </main>
+  <div id="messages"></div>
 
-  <footer>
-    <p>© 2026 - My Project</p>
-  </footer>
+  <div class="inputBox">
+    <input id="msg" placeholder="اكتب رسالة...">
+    <button onclick="send()">إرسال</button>
+  </div>
+</div>
 
-  <script src="script.js"></script>
+<script src="app.js"></script>
+
 </body>
 </html>

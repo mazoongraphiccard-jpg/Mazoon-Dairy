@@ -1,37 +1,62 @@
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  text-align: center;
+  font-family: Arial;
   background: linear-gradient(135deg, #006272, #00bab3);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  max-width: 500px;
+  height: 80vh;
+  background: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  background: #006272;
   color: white;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
 }
 
-header {
-  padding: 60px 20px;
+#messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
 }
 
-main {
-  padding: 40px;
+.msg {
+  background: #00bab3;
+  color: white;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 8px;
+}
+
+.inputBox {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
 }
 
 button {
-  padding: 12px 25px;
+  background: #006272;
+  color: white;
   border: none;
-  border-radius: 8px;
+  padding: 10px 15px;
   cursor: pointer;
-  font-size: 16px;
-  background: white;
-  color: #006272;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #f0f0f0;
-}
-
-footer {
-  margin-top: 50px;
-  padding: 20px;
-  background: rgba(0,0,0,0.2);
 }
