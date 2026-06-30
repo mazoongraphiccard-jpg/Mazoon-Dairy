@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Mazoon Pro Chat</title>
+<script src="/socket.io/socket.io.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+display:flex;
+height:100vh;
+background:#006272;
+}
+
+#users{
+width:25%;
+background:#00bab3;
+padding:10px;
+overflow-y:auto;
+}
+
+#chat{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+#messages{
+flex:1;
+background:white;
+overflow-y:auto;
+padding:10px;
+}
+
+#input{
+display:flex;
+}
+
+input{
+flex:1;
+padding:10px;
+}
+
+button{
+padding:10px;
+}
+
+.msg{
+margin:5px;
+padding:6px;
+background:#eee;
+border-radius:6px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="users"></div>
+
+<div id="chat">
+<div id="messages"></div>
+
+<div id="input">
+<input id="msg">
+<button onclick="send()">إرسال</button>
+</div>
+
+<button onclick="clearChat()">مسح الشات</button>
+</div>
+
+<script>
+const socket = io();
+let name = prompt("اسمك:");
+socket.emit("join", name);
+
+function send(){
+const msg = document.getElementById("msg").value;
+socket.emit("message", msg);
+document.getElementById("msg").value="";
+}
+
+socket.on("message",(m)=>{
+const div=document.createElement("div");
+div.className="msg";
+div.innerText=m.user+": "+m.text;
+document.getElementById("messages").appendChild(div);
+});
+
+socket.on("messages",(msgs)=>{
+document.getElementById("messages").innerHTML="";
+msgs.forEach(m=>{
+const div=document.createElement("div");
+div.className="msg";
+div.innerText=m.user+": "+m.text;
+document.getElementById("messages").appendChild(div);
+});
+});
+
+socket.on("users",(users)=>{
+const box=document.getElementById("users");
+box.innerHTML="<h3>المستخدمين</h3>";
+
+Object.entries(users).forEach(([id,name])=>{
+const div=document.createElement("div");
+div.innerHTML=name;
+
+div.onclick=()=>{
+let action=prompt("kick أو dm");
+
+if(action==="kick"){
+socket.emit("kick",id);
+}
+
+if(action==="dm"){
+let t=prompt("رسالة خاصة:");
+socket.emit("private",{to:id,text:t});
+}
+};
+
+box.appendChild(div);
+});
+});
+
+socket.on("private",(d)=>{
+alert("خاص من "+d.from+": "+d.text);
+});
+
+function clearChat(){
+socket.emit("clear");
+}
+</script>
+
+</body>
+</html>
